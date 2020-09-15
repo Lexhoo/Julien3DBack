@@ -1,30 +1,32 @@
-package com.example.Julien3DBack.Categorie;
+package com.example.Julien3DBack.Projet;
+
 
 import com.example.Julien3DBack.Image.Image;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-public class Categorie {
+public class Projet {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY )
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="ID")
     private Long id;
 
-    @Column(name="NAME")
+    @Column(name = "name")
     private String name;
 
-    @OneToMany(mappedBy = "categorie")
-    private Set<Image> image;
+    @OneToMany(mappedBy = "projet")
+    private Set<Image> images;
 
-    public Set<Image> getImage() {
-        return image;
+    public Set<Image> getImages() {
+        return images;
     }
 
-    public void setImage(Set<Image> image) {
-        this.image = image;
+    public void setImages(Set<Image> images) {
+        this.images = images;
     }
 
     public Long getId() {

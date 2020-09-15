@@ -1,5 +1,7 @@
 package com.example.Julien3DBack.Video;
 
+import com.example.Julien3DBack.Image.Image;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -14,14 +16,33 @@ public class Video {
     @Column(name="NAME")
     private String name;
 
-//    @Column(name="VIDEO")
-//    private String name;
+    @Column(name="VIDEO_URL")
+    private String videoUrl;
+
+    @OneToOne(mappedBy = "video")
+    private Image image;
 
        @Column(name="RESUME")
     private String resume;
 
     @Column(name="DATE_CREATION")
     private Date dateOfCreation;
+
+    public Image getImage() {
+        return image;
+    }
+
+    public String getVideoUrl() {
+        return videoUrl;
+    }
+
+    public void setVideoUrl(String videoUrl) {
+        this.videoUrl = videoUrl;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
+    }
 
     public Long getId() {
         return id;
