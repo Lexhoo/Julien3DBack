@@ -1,7 +1,7 @@
 package com.example.Julien3DBack.Projet;
 
 
-import com.example.Julien3DBack.UploadFile.UploadImage;
+import com.example.Julien3DBack.DatasFiles.DatasFiles;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.persistence.*;
@@ -19,14 +19,14 @@ public class Projet {
     private String name;
 
     @OneToMany(mappedBy = "projet")
-    private Set<UploadImage> images;
+    private Set<DatasFiles> datasFiles;
 
-    public Set<UploadImage> getImages() {
-        return images;
+    public Set<DatasFiles> getDatasFiles() {
+        return datasFiles;
     }
 
-    public void setImages(Set<UploadImage> images) {
-        this.images = images;
+    public void setDatasFiles(Set<DatasFiles> datasFiles) {
+        this.datasFiles = datasFiles;
     }
 
     public Long getId() {

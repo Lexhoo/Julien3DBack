@@ -1,6 +1,6 @@
 package com.example.Julien3DBack.Categorie;
 
-import com.example.Julien3DBack.UploadFile.UploadImage;
+import com.example.Julien3DBack.DatasFiles.DatasFiles;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -17,20 +17,16 @@ public class Categorie {
     private String name;
 
     @OneToMany(mappedBy = "categorie")
-    private Set<UploadImage> image;
+    private Set<DatasFiles> datasFiles;
 
 
-
-    public Set<UploadImage> getImage() {
-        return image;
+    public Set<DatasFiles> getDatasFiles() {
+        return datasFiles;
     }
 
-    public void setImage(Set<UploadImage> image) {
-        this.image = image;
+    public void setDatasFiles(Set<DatasFiles> datasFiles) {
+        this.datasFiles = datasFiles;
     }
-
-
-
 
     public Long getId() {
         return id;
