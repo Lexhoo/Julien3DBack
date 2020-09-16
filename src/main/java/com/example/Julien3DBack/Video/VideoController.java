@@ -15,18 +15,17 @@ import java.util.Optional;
 @RequestMapping("/videos")
 public class VideoController {
 
-    @Autowired VideoService videoService;
-
-    @Autowired VideoRepository repository;
+    @Autowired
+    VideoService videoService;
 
     @GetMapping()
-    public List<Video> getAllVideos(){
-        return repository.findAll();
+    public List<Video> getAllVideos() {
+        return this.videoService.getAllVideos();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Video> getVideoDataByID(@PathVariable("id") long video_id) {
-        Optional<Video> videoData = repository.findById(video_id);
+        Optional<Video> videoData = this.videoService.getVideoById(video_id);
 
         if (videoData.isPresent()) {
             return new ResponseEntity<>(videoData.get(), HttpStatus.OK);
@@ -37,21 +36,19 @@ public class VideoController {
 
     @PostMapping("/post")
     public Video save(@RequestBody Video video) {
-        return videoService.create(video);
+        return this.videoService.create(video);
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<Video> updateVideo(@RequestBody Video video, @PathVariable long id) throws NotFoundException{
+    public ResponseEntity<Video> updateVideo(@RequestBody Video video, @PathVariable long id) throws NotFoundException {
         return new ResponseEntity<Video>(this.videoService.updateVideo(video, id), HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")
-    public String deleteVideo(@PathVariable("id") long id, Model model) {
-        Video video = repository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid Projet Id:" + id));
-        repository.delete(video);
-        model.addAttribute("video", repository.findAll());
-        return "index";
+    public void deleteVideo(@PathVariable("id") long id) {
+        this.videoService.deleteById(id);
     }
+
+
 
 }

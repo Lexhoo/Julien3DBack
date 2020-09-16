@@ -1,6 +1,6 @@
 package com.example.Julien3DBack.Video;
 
-import com.example.Julien3DBack.Image.Image;
+import com.example.Julien3DBack.UploadFile.UploadImage;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -9,27 +9,33 @@ import java.util.Date;
 public class Video {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY )
-    @Column(name="ID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
     private Long id;
 
-    @Column(name="NAME")
+    @Column(name = "NAME")
     private String name;
 
-    @Column(name="VIDEO_URL")
+    @Column(name = "VIDEO_URL")
     private String videoUrl;
 
     @OneToOne(mappedBy = "video")
-    private Image image;
+    private UploadImage image;
 
-       @Column(name="RESUME")
+    @Column(name = "RESUME")
     private String resume;
 
-    @Column(name="DATE_CREATION")
+
+
+    @Column(name = "DATE_CREATION")
     private Date dateOfCreation;
 
-    public Image getImage() {
+    public UploadImage getImage() {
         return image;
+    }
+
+    public void setImage(UploadImage image) {
+        this.image = image;
     }
 
     public String getVideoUrl() {
@@ -38,10 +44,6 @@ public class Video {
 
     public void setVideoUrl(String videoUrl) {
         this.videoUrl = videoUrl;
-    }
-
-    public void setImage(Image image) {
-        this.image = image;
     }
 
     public Long getId() {

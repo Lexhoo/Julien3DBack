@@ -2,6 +2,7 @@ package com.example.Julien3DBack.UploadFile;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 import java.util.zip.DataFormatException;
 import java.util.zip.Deflater;
@@ -23,6 +24,12 @@ public class UploadImageController {
 
     @Autowired
     UploadImageRepository uploadImageRepository;
+
+    @Autowired
+    UploadImageService uploadImageService;
+
+    @GetMapping()
+    public List<UploadImage> getAllImages() { return this.uploadImageService.getAllImages();}
 
     @PostMapping("/upload")
     public void uplaodImage(@RequestParam("imageFile") MultipartFile file, @RequestBody UploadImage uploadImage) throws IOException {

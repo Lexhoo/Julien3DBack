@@ -1,6 +1,6 @@
 package com.example.Julien3DBack.Categorie;
 
-import com.example.Julien3DBack.Image.Image;
+import com.example.Julien3DBack.UploadFile.UploadImage;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -9,23 +9,28 @@ import java.util.Set;
 public class Categorie {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY )
-    @Column(name="ID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
     private Long id;
 
-    @Column(name="NAME")
+    @Column(name = "NAME")
     private String name;
 
     @OneToMany(mappedBy = "categorie")
-    private Set<Image> image;
+    private Set<UploadImage> image;
 
-    public Set<Image> getImage() {
+
+
+    public Set<UploadImage> getImage() {
         return image;
     }
 
-    public void setImage(Set<Image> image) {
+    public void setImage(Set<UploadImage> image) {
         this.image = image;
     }
+
+
+
 
     public Long getId() {
         return id;

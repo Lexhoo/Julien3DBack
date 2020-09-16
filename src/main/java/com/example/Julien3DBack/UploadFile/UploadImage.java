@@ -1,6 +1,7 @@
 package com.example.Julien3DBack.UploadFile;
 
 import com.example.Julien3DBack.Categorie.Categorie;
+import com.example.Julien3DBack.Projet.Projet;
 import com.example.Julien3DBack.Video.Video;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.web.multipart.MultipartFile;
@@ -9,7 +10,6 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "image_table")
 public class UploadImage {
 
     public UploadImage() {
@@ -48,8 +48,10 @@ public class UploadImage {
     @JoinColumn(name = "video_id", referencedColumnName = "id")
     private Video video;
 
+    @ManyToOne
     @JoinColumn(name = "projet_id", nullable = false)
-    private Long projet;
+    private Projet projet;
+
     public Long getId() {
         return id;
     }
@@ -86,11 +88,11 @@ public class UploadImage {
         this.video = video;
     }
 
-    public Long getProjet() {
+    public Projet getProjet() {
         return projet;
     }
 
-    public void setProjet(Long projet) {
+    public void setProjet(Projet projet) {
         this.projet = projet;
     }
 
