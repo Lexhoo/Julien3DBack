@@ -1,5 +1,12 @@
 package com.example.Julien3DBack.Projet;
 
+import com.example.Julien3DBack.Categorie.Categorie;
+import com.google.api.core.ApiFuture;
+import com.google.cloud.firestore.DocumentReference;
+import com.google.cloud.firestore.DocumentSnapshot;
+import com.google.cloud.firestore.Firestore;
+import com.google.cloud.firestore.WriteResult;
+import com.google.firebase.cloud.FirestoreClient;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -7,42 +14,45 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.ExecutionException;
 
 @Service
 public class ProjetService {
 
-    @Autowired
-    ProjetRepository repository;
+    public static final String COL_NAME="Projet";
 
-    public List<Projet> getAllProjets() {
-        return repository.findAll();
+    public String saveProjetDetails(Projet projet) throws InterruptedException, ExecutionException {
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        ApiFuture<WriteResult> collectionsApiFuture = dbFirestore.collection(COL_NAME).document(projet.getName()).set(projet);
+        return collectionsApiFuture.get().getUpdateTime().toString();
     }
 
-    public Projet createProjet(Projet projet) {
-        return repository.save(projet);
-    }
+    public Projet getProjetDetails(String name) throws InterruptedException, ExecutionException {
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        DocumentReference documentReference = dbFirestore.collection(COL_NAME).document(name);
+        ApiFuture<DocumentSnapshot> future = documentReference.get();
 
-    public Projet updateProjet(Projet projet, long id) throws NotFoundException {
+        DocumentSnapshot document = future.get();
 
-        Optional<Projet> studentOptional = repository.findById(id);
+        Projet projet = null;
 
-        if (!studentOptional.isPresent()) {
-            throw new NotFoundException("projet non trouvé");
+        if(document.exists()) {
+            projet = document.toObject(Projet.class);
+            return projet;
+        }else {
+            return null;
         }
-        projet.setId(id);
-
-        return repository.save(projet);
     }
 
-    public Optional<Projet> getProjetById(Long id) {
-        return repository.findById(id);
+    public String updateProjetDetails(Projet projet) throws InterruptedException, ExecutionException {
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        ApiFuture<WriteResult> collectionsApiFuture = dbFirestore.collection(COL_NAME).document(projet.getName()).set(projet);
+        return collectionsApiFuture.get().getUpdateTime().toString();
     }
 
-    public void deleteProjetById(Long id) {
-        repository.deleteById(id);
-    }
-
-    public List<Projet> getProjetsByName(String name) {
-        return repository.findByName(name);
+    public String deleteProjet(String name) {
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        ApiFuture<WriteResult> writeResult = dbFirestore.collection(COL_NAME).document(name).delete();
+        return "Projet File ID "+name+" has been deleted";
     }
 }
