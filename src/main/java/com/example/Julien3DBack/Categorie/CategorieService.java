@@ -1,6 +1,5 @@
 package com.example.Julien3DBack.Categorie;
 
-import com.example.Julien3DBack.Projet.Projet;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

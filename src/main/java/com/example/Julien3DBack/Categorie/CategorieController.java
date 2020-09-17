@@ -1,11 +1,9 @@
 package com.example.Julien3DBack.Categorie;
 
-import com.example.Julien3DBack.Projet.Projet;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,16 +16,14 @@ public class CategorieController {
 
     @Autowired CategorieService categorieService;
 
-    @Autowired CategorieRepository categorieRepository;
-
     @GetMapping()
     public List<Categorie> getAll() {
-        return categorieRepository.findAll();
+        return categorieService.getAllCategories();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Categorie> getCategorieDataByID(@PathVariable("id") long categorie_id) {
-        Optional<Categorie> categorieData = categorieRepository.findById(categorie_id);
+        Optional<Categorie> categorieData = categorieService.getCategorieById(categorie_id);
 
         if (categorieData.isPresent()) {
             return new ResponseEntity<>(categorieData.get(), HttpStatus.OK);
@@ -47,11 +43,7 @@ public class CategorieController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public String deleteCategorie(@PathVariable("id") long id, Model model) {
-        Categorie categorie = categorieRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid Categorie Id:" + id));
-        categorieRepository.delete(categorie);
-        model.addAttribute("categorie", categorieRepository.findAll());
-        return "index";
+    public void deleteCategorie(@PathVariable("id") long id) {
+      this.categorieService.deleteById(id);
     }
 }

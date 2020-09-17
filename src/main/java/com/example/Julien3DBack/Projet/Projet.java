@@ -1,8 +1,8 @@
 package com.example.Julien3DBack.Projet;
 
 
-import com.example.Julien3DBack.UploadFile.UploadImage;
-import org.springframework.web.bind.annotation.PathVariable;
+import com.example.Julien3DBack.UploadImage.UploadImage;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -18,6 +18,7 @@ public class Projet {
     @Column(name = "name")
     private String name;
 
+    @JsonBackReference
     @OneToMany(mappedBy = "projet")
     private Set<UploadImage> images;
 

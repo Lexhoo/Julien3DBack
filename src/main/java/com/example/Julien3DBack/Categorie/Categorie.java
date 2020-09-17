@@ -1,9 +1,6 @@
 package com.example.Julien3DBack.Categorie;
 
-import com.example.Julien3DBack.UploadFile.UploadImage;
-
 import javax.persistence.*;
-import java.util.Set;
 
 @Entity
 public class Categorie {
@@ -16,18 +13,19 @@ public class Categorie {
     @Column(name = "NAME")
     private String name;
 
-    @OneToMany(mappedBy = "categorie")
-    private Set<UploadImage> image;
+//    @JsonBackReference
+//    @OneToMany(mappedBy = "categorie")
+//    private Set<UploadImage> image;
 
 
 
-    public Set<UploadImage> getImage() {
-        return image;
-    }
-
-    public void setImage(Set<UploadImage> image) {
-        this.image = image;
-    }
+//    public Set<UploadImage> getImage() {
+//        return image;
+//    }
+//
+//    public void setImage(Set<UploadImage> image) {
+//        this.image = image;
+//    }
 
 
 
