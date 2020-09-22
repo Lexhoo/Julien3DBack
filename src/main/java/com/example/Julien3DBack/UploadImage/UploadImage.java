@@ -1,6 +1,5 @@
 package com.example.Julien3DBack.UploadImage;
 
-import com.example.Julien3DBack.Projet.Projet;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
@@ -21,10 +20,10 @@ public class UploadImage {
     private String title;
 
     @Column(name="resume")
-    private String englishResume;
+    private String resume;
 
     @Column(name="english_resume")
-    private String resume;
+    private String englishResume;
 
     @JsonFormat(pattern="dd-MM-yyyy")
     @Column(name="DATE_CREATION")
@@ -47,9 +46,9 @@ public class UploadImage {
     private Long idCategorie;
 
 
-    @ManyToOne
-    @JoinColumn(name = "projet_id", nullable = false)
-    private Projet projet;
+
+    @Column(name = "projet_id", nullable = false)
+    private Long idProjet;
 
     public Long getId() {
         return id;
@@ -131,19 +130,13 @@ public class UploadImage {
         this.videoUrl = videoUrl;
     }
 
-//    public Categorie getCategorie() {
-//        return categorie;
-//    }
-//
-//    public void setCategorie(Categorie categorie) {
-//        this.categorie = categorie;
-//    }
-
-    public Projet getProjet() {
-        return projet;
+    public Long getIdProjet() {
+        return idProjet;
     }
 
-    public void setProjet(Projet projet) {
-        this.projet = projet;
+    public void setIdProjet(Long idProjet) {
+        this.idProjet = idProjet;
     }
+
+
 }

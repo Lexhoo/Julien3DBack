@@ -1,34 +1,18 @@
 package com.example.Julien3DBack.Projet;
 
 
-import com.example.Julien3DBack.UploadImage.UploadImage;
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 import javax.persistence.*;
-import java.util.Set;
 
 @Entity
 public class Projet {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="ID")
     private Long id;
 
     @Column(name = "name")
     private String name;
-
-    @JsonBackReference
-    @OneToMany(mappedBy = "projet")
-    private Set<UploadImage> images;
-
-    public Set<UploadImage> getImages() {
-        return images;
-    }
-
-    public void setImages(Set<UploadImage> images) {
-        this.images = images;
-    }
 
     public Long getId() {
         return id;

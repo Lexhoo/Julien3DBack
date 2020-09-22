@@ -27,8 +27,20 @@ public class UploadImageController {
         return this.uploadImageService.getImagesByIdCategorie(idCategorie);
     }
 
+    @GetMapping("/projet/{idProjet}")
+    public List<UploadImage> getImagesByProjet(@PathVariable Long idProjet) {
+        return this.uploadImageService.getImagesByIdProjet(idProjet);
+    }
+
     @PostMapping("/post")
     public UploadImage save(@RequestBody UploadImage uploadImage) {
-        return uploadImageService.createImage(uploadImage);
+        return this.uploadImageService.createImage(uploadImage);
     }
+
+  /*  @ExceptionHandler(NotFoundException.class)
+    @PutMapping("/update/{id}")
+        public ResponseEntity<UploadImage> updateImage(@RequestBody UploadImage uploadImage, @PathVariable long id) throws NotFoundException {
+        return new ResponseEntity<UploadImage>(this.uploadImageService.updateImage(uploadImage, id), HttpStatus.OK);
+        }*/
+
 }
