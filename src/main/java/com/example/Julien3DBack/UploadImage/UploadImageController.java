@@ -37,6 +37,11 @@ public class UploadImageController {
         return this.uploadImageService.createImage(uploadImage);
     }
 
+    @PostMapping("/post/images")
+    public void saveImages(@RequestBody List<UploadImage> uploadImageList) {
+        this.uploadImageService.createImages(uploadImageList);
+    }
+
   /*  @ExceptionHandler(NotFoundException.class)
     @PutMapping("/update/{id}")
         public ResponseEntity<UploadImage> updateImage(@RequestBody UploadImage uploadImage, @PathVariable long id) throws NotFoundException {

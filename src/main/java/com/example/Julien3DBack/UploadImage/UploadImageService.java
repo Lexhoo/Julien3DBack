@@ -1,10 +1,10 @@
 package com.example.Julien3DBack.UploadImage;
 
+import com.example.Julien3DBack.exceptionHandler.DataNotFoundException;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,8 +38,12 @@ public class UploadImageService {
      * @param idProjet
      * @return une liste d'images.
      */
-    public List<UploadImage> getImagesByIdProjet(Long idProjet) {
-        return this.uploadImageRepository.findByIdProjet(idProjet);
+    public List<UploadImage> getImagesByIdProjet(Long idProjet)  {
+        List<UploadImage> FilesList = this.uploadImageRepository.findByIdProjet(idProjet);
+        if (FilesList.isEmpty()) {
+            throw new DataNotFoundException("302");
+        }
+        return FilesList;
     }
 
     /**
@@ -48,7 +52,11 @@ public class UploadImageService {
      * @return une image.
      */
     public Optional<UploadImage> getImageById(Long id) {
-        return this.uploadImageRepository.findById(id);
+        Optional<UploadImage> image = this.uploadImageRepository.findById(id);
+        if (image == null) {
+            throw new DataNotFoundException("301");
+        }
+        return image;
     }
 
     public void deleteImageById(Long id) {
@@ -57,6 +65,14 @@ public class UploadImageService {
 
     public UploadImage createImage(UploadImage uploadImage) {
         return this.uploadImageRepository.save(uploadImage);
+    }
+
+    public void createImages(List<UploadImage> uploadImages) {
+        if (uploadImages != null && !uploadImages.isEmpty()) {
+            uploadImages.stream().forEach(image -> {
+                this.createImage(image);
+            });
+        }
     }
     
     public UploadImage updateImage(Long id, UploadImage uploadImage) throws NotFoundException {
