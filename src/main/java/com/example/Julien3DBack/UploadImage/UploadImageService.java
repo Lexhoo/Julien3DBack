@@ -1,7 +1,10 @@
 package com.example.Julien3DBack.UploadImage;
 
+import com.example.Julien3DBack.Categorie.CategoriesEnum;
 import com.example.Julien3DBack.exceptionHandler.DataNotFoundException;
-import javassist.NotFoundException;
+import com.example.Julien3DBack.exceptionHandler.DataSystemException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,25 +14,21 @@ import java.util.Optional;
 @Service
 public class UploadImageService {
 
+    private static final Logger LOG = LogManager.getLogger(UploadImageService.class);
+
     @Autowired UploadImageRepository uploadImageRepository;
 
     public List<UploadImage> getAllImages(){
         return uploadImageRepository.findAll();
     }
 
-//    public List<UploadImage> getImagesByCategorie(CategoriesEnum categorie) {
-//        Categorie categorie1 = new Categorie();
-//        categorie1.setId(categorie.getId());
-//        categorie1.setName(categorie.getCategorie());
-//        return this.uploadImageRepository.findByCategorie(categorie1);
-//    }
-
     /**
      * Permet de récupérer toutes les images liées à la catégorie.
-     * @param idCategorie
+     * @param categorie
      * @return une liste d'images
      */
-    public List<UploadImage> getImagesByIdCategorie(Long idCategorie) {
+    public List<UploadImage> getImagesByIdCategorie(String categorie) {
+        Long idCategorie = CategoriesEnum.valueOf(categorie.toUpperCase()).getId();
         return this.uploadImageRepository.findByIdCategorie(idCategorie);
     }
 
@@ -41,6 +40,7 @@ public class UploadImageService {
     public List<UploadImage> getImagesByIdProjet(Long idProjet)  {
         List<UploadImage> FilesList = this.uploadImageRepository.findByIdProjet(idProjet);
         if (FilesList.isEmpty()) {
+            LOG.error("je suis 1 Error");
             throw new DataNotFoundException("302");
         }
         return FilesList;
@@ -51,41 +51,52 @@ public class UploadImageService {
      * @param id
      * @return une image.
      */
-    public Optional<UploadImage> getImageById(Long id) {
-        Optional<UploadImage> image = this.uploadImageRepository.findById(id);
-        if (image == null) {
-            throw new DataNotFoundException("301");
-        }
-        return image;
-    }
+    public UploadImage getImageById(Long id) {
+        Optional<UploadImage> image;
+        try {
+            image = this.uploadImageRepository.findById(id);
+            if (!image.isPresent()) {
+                throw new DataNotFoundException("0210");
+            }
+        } catch (Exception e) {
+            if (e.getMessage().equals("0210")) {
+                throw new DataNotFoundException("0210", e);
+            } else {
+                LOG.error("Une erreur est survenue lors de l'appel BDD getImageById", e);
+                throw new DataSystemException("0311", e);
+            }
 
-    public void deleteImageById(Long id) {
-        this.uploadImageRepository.deleteById(id);
+        }
+        return image.get();
     }
 
     public UploadImage createImage(UploadImage uploadImage) {
         return this.uploadImageRepository.save(uploadImage);
     }
 
-    public void createImages(List<UploadImage> uploadImages) {
-        if (uploadImages != null && !uploadImages.isEmpty()) {
-            uploadImages.stream().forEach(image -> {
+    public void createImages(List<UploadImage> uploadImageList) {
+        if (uploadImageList != null && !uploadImageList.isEmpty()) {
+            uploadImageList.stream().forEach(image -> {
                 this.createImage(image);
             });
         }
     }
-    
-    public UploadImage updateImage(Long id, UploadImage uploadImage) throws NotFoundException {
-        Optional<UploadImage> studentOptional = uploadImageRepository.findById(id);
 
-        if (!studentOptional.isPresent()) {
-            throw new NotFoundException("Fichier non trouvé");
-        }
-        uploadImage.setId(id);
-
-        return this.uploadImageRepository.save(uploadImage);
+    public void deleteImageById(Long id) {
+        this.uploadImageRepository.deleteById(id);
     }
 
 
+
+//    public UploadImage updateImage(Long id, UploadImage uploadImage) {
+//        Optional<UploadImage> studentOptional = uploadImageRepository.findById(id);
+//
+//        if (!studentOptional.isPresent()) {
+//            throw new DataNotFoundException("Fichier non trouvé");
+//        }
+//        uploadImage.setId(id);
+//
+//        return this.uploadImageRepository.save(uploadImage);
+//    }
 
 }

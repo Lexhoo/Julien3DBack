@@ -2,7 +2,7 @@ package com.example.Julien3DBack.Categorie;
 
 
 public enum CategoriesEnum {
-    ALEX("Alex", 1l), SIXD("6D", 3l);
+    DIRECTION("Alex", 1l), VISUAL_EFFECT("6D", 3l);
 
 
     CategoriesEnum(String categorie, Long l) {

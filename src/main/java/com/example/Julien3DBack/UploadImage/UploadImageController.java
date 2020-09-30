@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@CrossOrigin
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("/upload")
 public class UploadImageController {
 
@@ -22,12 +22,12 @@ public class UploadImageController {
 //    public List<UploadImage> getImagesByCategorie(@PathVariable CategoriesEnum categorieEnum) {
 //        return this.uploadImageService.getImagesByCategorie(categorieEnum);
 //    }
-    @GetMapping("/categorie/{idCategorie}")
-    public List<UploadImage> getImagesByCategorie(@PathVariable Long idCategorie) {
-        return this.uploadImageService.getImagesByIdCategorie(idCategorie);
+    @GetMapping("/categorie/{categorie}")
+    public List<UploadImage> getImagesByCategorie(@PathVariable String categorie) {
+        return this.uploadImageService.getImagesByIdCategorie(categorie);
     }
 
-    @GetMapping("/projet/{idProjet}")
+    @GetMapping("/{idProjet}")
     public List<UploadImage> getImagesByProjet(@PathVariable Long idProjet) {
         return this.uploadImageService.getImagesByIdProjet(idProjet);
     }
