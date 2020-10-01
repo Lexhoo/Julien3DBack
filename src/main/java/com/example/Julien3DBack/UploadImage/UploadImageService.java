@@ -27,8 +27,8 @@ public class UploadImageService {
      * @param categorie
      * @return une liste d'images
      */
-    public List<UploadImage> getImagesByIdCategorie(String categorie) {
-        Long idCategorie = CategoriesEnum.valueOf(categorie.toUpperCase()).getId();
+    public List<UploadImage> getImagesByIdCategorie(CategoriesEnum categorie) {
+        Long idCategorie = categorie.getId();
         return this.uploadImageRepository.findByIdCategorie(idCategorie);
     }
 

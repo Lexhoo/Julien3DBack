@@ -66,7 +66,6 @@ public class ProjetService {
      * @return le projet mis à jour.
      */
     public Projet updateProjet(Projet projet, long id) {
-        Projet projet1;
         try {
             Optional<Projet> studentOptional = this.repository.findById(id);
 
@@ -74,7 +73,7 @@ public class ProjetService {
                 throw new DataNotFoundException("0201");
             }
             projet.setId(id);
-            projet1 = this.repository.save(projet);
+            projet = this.repository.save(projet);
         } catch (Exception e) {
             if (e.getMessage().equals("0201")) {
                 throw new DataNotFoundException("0201", e);
@@ -83,7 +82,7 @@ public class ProjetService {
                 throw new DataSystemException("0302", e);
             }
         }
-        return projet1;
+        return projet;
     }
 
     /**

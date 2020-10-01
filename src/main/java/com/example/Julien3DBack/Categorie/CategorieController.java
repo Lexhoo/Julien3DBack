@@ -1,6 +1,5 @@
 package com.example.Julien3DBack.Categorie;
 
-import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,16 +33,21 @@ public class CategorieController {
 
     @PostMapping("/post")
     public Categorie save(@RequestBody Categorie categorie) {
-        return categorieService.create(categorie);
+        return categorieService.createCategorie(categorie);
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<Categorie> updateCategorie(@RequestBody Categorie categorie, @PathVariable long id) throws NotFoundException {
+    public ResponseEntity<Categorie> updateCategorie(@RequestBody Categorie categorie, @PathVariable long id) {
         return new ResponseEntity<Categorie>(this.categorieService.updateCategorie(categorie, id), HttpStatus.OK);
+    }
+
+    @GetMapping("name/{name}")
+    public ResponseEntity<Categorie> getCategorieByName(@PathVariable String name) {
+        return new ResponseEntity<Categorie>(categorieService.getCategorieByName(name), HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")
     public void deleteCategorie(@PathVariable("id") long id) {
-      this.categorieService.deleteById(id);
+              this.categorieService.deleteCategorieById(id);
     }
 }
