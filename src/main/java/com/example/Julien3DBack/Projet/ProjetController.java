@@ -1,17 +1,11 @@
 package com.example.Julien3DBack.Projet;
 
-import com.example.Julien3DBack.Categorie.Categorie;
-import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @CrossOrigin
@@ -19,23 +13,22 @@ import java.util.Optional;
 
 public class ProjetController {
 
-    @Autowired ProjetService projetService;
-
+    @Autowired
+    ProjetService projetService;
 
     @GetMapping()
     public List<Projet> getAllProjets() {
-        return projetService.getAllProjets();
+        return this.projetService.getAllProjets();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Projet> getProjetDataByID(@PathVariable("id") long projet_id) {
-        Optional<Projet> projetData = projetService.getProjetById(projet_id);
+    public ResponseEntity<Projet> getProjetDataByID(@PathVariable long id) {
+        return new ResponseEntity<Projet>(projetService.getProjetById(id), HttpStatus.OK);
+    }
 
-        if (projetData.isPresent()) {
-            return new ResponseEntity<>(projetData.get(), HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+    @GetMapping("name/{name}")
+    public ResponseEntity<Projet> getProjetDataByID(@PathVariable String name) {
+        return new ResponseEntity<Projet>(projetService.getProjetsByName(name), HttpStatus.OK);
     }
 
     @PostMapping("/post")
@@ -43,18 +36,13 @@ public class ProjetController {
         return projetService.createProjet(projet);
     }
 
-    @ExceptionHandler(NotFoundException.class)
     @PutMapping("/update/{id}")
-    public ResponseEntity<Projet> updateProjet(@RequestBody Projet projet, @PathVariable long id) throws NotFoundException {
+    public ResponseEntity<Projet> updateProjet(@RequestBody Projet projet, @PathVariable long id) {
         return new ResponseEntity<Projet>(this.projetService.updateProjet(projet, id), HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")
-    public String deleteProjet(@PathVariable("id") long id, Model model) {
-        Projet projet = projetService.getProjetById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid Projet Id:" + id));
-        projetService.deleteProjetById(id);
-        model.addAttribute("projet", projetService.getAllProjets());
-        return "index";
+    public void deleteProjet(@PathVariable long id) {
+        this.projetService.deleteProjetById(id);
     }
 }

@@ -1,11 +1,8 @@
 package com.example.Julien3DBack.Categorie;
 
-import com.example.Julien3DBack.Projet.Projet;
-import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,16 +15,14 @@ public class CategorieController {
 
     @Autowired CategorieService categorieService;
 
-    @Autowired CategorieRepository categorieRepository;
-
     @GetMapping()
     public List<Categorie> getAll() {
-        return categorieRepository.findAll();
+        return categorieService.getAllCategories();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Categorie> getCategorieDataByID(@PathVariable("id") long categorie_id) {
-        Optional<Categorie> categorieData = categorieRepository.findById(categorie_id);
+        Optional<Categorie> categorieData = categorieService.getCategorieById(categorie_id);
 
         if (categorieData.isPresent()) {
             return new ResponseEntity<>(categorieData.get(), HttpStatus.OK);
@@ -38,20 +33,21 @@ public class CategorieController {
 
     @PostMapping("/post")
     public Categorie save(@RequestBody Categorie categorie) {
-        return categorieService.create(categorie);
+        return categorieService.createCategorie(categorie);
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<Categorie> updateCategorie(@RequestBody Categorie categorie, @PathVariable long id) throws NotFoundException {
+    public ResponseEntity<Categorie> updateCategorie(@RequestBody Categorie categorie, @PathVariable long id) {
         return new ResponseEntity<Categorie>(this.categorieService.updateCategorie(categorie, id), HttpStatus.OK);
     }
 
+    @GetMapping("name/{name}")
+    public ResponseEntity<Categorie> getCategorieByName(@PathVariable String name) {
+        return new ResponseEntity<Categorie>(categorieService.getCategorieByName(name), HttpStatus.OK);
+    }
+
     @DeleteMapping("/delete/{id}")
-    public String deleteCategorie(@PathVariable("id") long id, Model model) {
-        Categorie categorie = categorieRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid Categorie Id:" + id));
-        categorieRepository.delete(categorie);
-        model.addAttribute("categorie", categorieRepository.findAll());
-        return "index";
+    public void deleteCategorie(@PathVariable("id") long id) {
+              this.categorieService.deleteCategorieById(id);
     }
 }
