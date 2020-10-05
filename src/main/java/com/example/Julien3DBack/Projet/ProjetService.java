@@ -31,7 +31,7 @@ public class ProjetService {
                 throw new DataNotFoundException("0200");
             }
         } catch (Exception e) {
-            if (e.getMessage().equals("0200")) {
+            if ("0200".equals(e.getMessage())) {
                 throw new DataNotFoundException("0200", e);
             } else {
                 LOG.error("Une erreur est survenue lors de l'appel BDD getAllProjets", e);
@@ -75,7 +75,7 @@ public class ProjetService {
             projet.setId(id);
             projet = this.repository.save(projet);
         } catch (Exception e) {
-            if (e.getMessage().equals("0201")) {
+            if ("0201".equals(e.getMessage())) {
                 throw new DataNotFoundException("0201", e);
             } else {
                 LOG.error("Une erreur est survenue lors de l'appel BDD updateProjet", e);
@@ -100,7 +100,7 @@ public class ProjetService {
             }
 
         } catch (Exception e) {
-            if (e.getMessage().equals("0203")) {
+            if ("0203".equals(e.getMessage())) {
                 throw new DataNotFoundException("0203", e);
             } else {
                 LOG.error("Une erreur est survenue lors de l'appel BDD getProjetById", e);
@@ -133,7 +133,7 @@ public class ProjetService {
                 throw new DataNotFoundException("0202");
             }
         } catch (Exception e) {
-            if (e.getMessage().equals("0202")) {
+            if ("0202".equals(e.getMessage())) {
                 throw new DataNotFoundException("0202", e);
             } else {
                 LOG.error("Une erreur est survenue lors de l'appel BDD getProjetsByName", e);

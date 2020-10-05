@@ -1,6 +1,5 @@
 package com.example.Julien3DBack.UploadImage;
 
-import com.example.Julien3DBack.Categorie.CategoriesEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,9 +22,9 @@ public class UploadImageController {
 //    public List<UploadImage> getImagesByCategorie(@PathVariable CategoriesEnum categorieEnum) {
 //        return this.uploadImageService.getImagesByIdCategorie(categorieEnum);
 //    }
-    @GetMapping("/categorie/{categorie}")
-    public List<UploadImage> getImagesByCategorie(@PathVariable CategoriesEnum categorieEnum) {
-        return this.uploadImageService.getImagesByIdCategorie(categorieEnum);
+    @GetMapping("/categorie/{idCategorie}")
+    public List<UploadImage> getImagesByCategorie(@PathVariable Long idCategorie) {
+        return this.uploadImageService.getImagesByIdCategorie(idCategorie);
     }
 
     @GetMapping("/{idProjet}")

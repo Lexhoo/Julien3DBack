@@ -44,7 +44,7 @@ public class MosaiqueService {
             }
         } catch (Exception e) {
 
-            if (e.getMessage().equals("0200") || e.getMessage().equals("0206")) {
+            if (e.getMessage() != null && e.getMessage().equals("0200") || e.getMessage().equals("0206")) {
                 throw new DataNotFoundException("207", e);
             } else {
                 LOG.error("Une erreur est survenue lors de la constitution du randhome", e);

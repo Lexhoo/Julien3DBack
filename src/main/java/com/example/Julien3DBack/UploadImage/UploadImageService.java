@@ -1,6 +1,5 @@
 package com.example.Julien3DBack.UploadImage;
 
-import com.example.Julien3DBack.Categorie.CategoriesEnum;
 import com.example.Julien3DBack.exceptionHandler.DataNotFoundException;
 import com.example.Julien3DBack.exceptionHandler.DataSystemException;
 import org.apache.logging.log4j.LogManager;
@@ -24,11 +23,10 @@ public class UploadImageService {
 
     /**
      * Permet de récupérer toutes les images liées à la catégorie.
-     * @param categorie
+     * @param idCategorie
      * @return une liste d'images
      */
-    public List<UploadImage> getImagesByIdCategorie(CategoriesEnum categorie) {
-        Long idCategorie = categorie.getId();
+    public List<UploadImage> getImagesByIdCategorie(Long idCategorie) {
         return this.uploadImageRepository.findByIdCategorie(idCategorie);
     }
 
@@ -59,7 +57,7 @@ public class UploadImageService {
                 throw new DataNotFoundException("0210");
             }
         } catch (Exception e) {
-            if (e.getMessage().equals("0210")) {
+            if (e.getMessage() != null && e.getMessage().equals("0210")) {
                 throw new DataNotFoundException("0210", e);
             } else {
                 LOG.error("Une erreur est survenue lors de l'appel BDD getImageById", e);

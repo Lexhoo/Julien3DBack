@@ -26,7 +26,7 @@ public class CategorieService {
                 throw new DataNotFoundException("0200");
             }
             }catch (Exception e) {
-                if (e.getMessage().equals("0200")) {
+                if (e.getMessage() != null && e.getMessage().equals("0200")) {
                     throw new DataNotFoundException("0200", e);
                 } else {
                     LOG.error("Une erreur est survenue lors de l'appel BDD getAllProjets", e);
@@ -62,7 +62,7 @@ public class CategorieService {
             categorie.setId(id);
             categorie = this.categorieRepository.save(categorie);
         } catch (Exception e) {
-            if (e.getMessage().equals("0201")) {
+            if (e.getMessage() != null && e.getMessage().equals("0201")) {
             } else {
                 LOG.error("Une erreur est survenue lors de l'appel BDD updateCategorie", e);
                 throw new DataSystemException("0302", e);
@@ -89,7 +89,7 @@ public class CategorieService {
                 throw new DataNotFoundException("0202");
              }
             } catch (Exception e) {
-                if (e.getMessage().equals("0202")) {
+                if (e.getMessage() != null && e.getMessage().equals("0202")) {
                     throw new DataNotFoundException("0202, e");
                 } else {
                 LOG.error("Une erreur est survenue lors de l'appel BDD getCategorieByName", e);
