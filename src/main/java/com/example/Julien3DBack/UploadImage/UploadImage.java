@@ -46,6 +46,16 @@ public class UploadImage {
     private Long idCategorie;
 
 
+    public String getProjetName() {
+        return projetName;
+    }
+
+    public void setProjetName(String projetName) {
+        this.projetName = projetName;
+    }
+
+    @Column(name = "projet_name", nullable = false)
+    private String projetName;
 
     @Column(name = "projet_id", nullable = false)
     private Long idProjet;
