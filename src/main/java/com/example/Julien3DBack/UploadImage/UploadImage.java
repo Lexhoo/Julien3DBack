@@ -54,7 +54,7 @@ public class UploadImage {
         this.projetName = projetName;
     }
 
-    @Column(name = "projet_name", nullable = false)
+    @Column(name = "projet_name")
     private String projetName;
 
     @Column(name = "projet_id", nullable = false)

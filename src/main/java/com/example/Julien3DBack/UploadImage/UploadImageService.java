@@ -87,7 +87,9 @@ public class UploadImageService {
         this.uploadImageRepository.deleteById(id);
     }
 
-
+    public List<UploadImage> hasvideo() {
+        return this.uploadImageRepository.findByHasVideo(true);
+    }
 
 //    public UploadImage updateImage(Long id, UploadImage uploadImage) {
 //        Optional<UploadImage> studentOptional = uploadImageRepository.findById(id);

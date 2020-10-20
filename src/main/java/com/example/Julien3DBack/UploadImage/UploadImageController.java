@@ -54,5 +54,8 @@ public class UploadImageController {
         return new ResponseEntity<UploadImage>(this.uploadImageService.updateImage(uploadImage, id), HttpStatus.OK);
         }*/
 
-
+    @GetMapping("/imagevideo")
+    public List<UploadImage> imageVideo(){
+        return this.uploadImageService.hasvideo();
+    }
 }
