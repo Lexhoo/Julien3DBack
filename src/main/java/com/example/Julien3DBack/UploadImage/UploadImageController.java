@@ -3,6 +3,7 @@ package com.example.Julien3DBack.UploadImage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.websocket.server.PathParam;
 import java.util.List;
 
 @RestController
@@ -27,6 +28,11 @@ public class UploadImageController {
         return this.uploadImageService.getImagesByIdCategorie(idCategorie);
     }
 
+    @GetMapping("/projetcategorie")
+    public List<UploadImage> findByIdProjetAndIdCategorie(@PathParam("idProjet") Long idProjet, @PathParam("idCategorie")Long idCategorie){
+        return this.uploadImageService.findByIdProjetAndIdCategorie(idProjet, idCategorie);
+    }
+
     @GetMapping("/{idProjet}")
     public List<UploadImage> getImagesByProjet(@PathVariable Long idProjet) {
         return this.uploadImageService.getImagesByIdProjet(idProjet);
@@ -48,4 +54,8 @@ public class UploadImageController {
         return new ResponseEntity<UploadImage>(this.uploadImageService.updateImage(uploadImage, id), HttpStatus.OK);
         }*/
 
+    @GetMapping("/imagevideo")
+    public List<UploadImage> imageVideo(){
+        return this.uploadImageService.hasvideo();
+    }
 }

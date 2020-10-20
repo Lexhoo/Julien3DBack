@@ -30,6 +30,9 @@ public class UploadImageService {
         return this.uploadImageRepository.findByIdCategorie(idCategorie);
     }
 
+    public List<UploadImage> findByIdProjetAndIdCategorie(Long idProjet, Long idCategorie) {
+        return this.uploadImageRepository.findByIdProjetAndIdCategorie(idProjet, idCategorie);
+    }
     /**
      * Permet de récupérer toutes les images liées à un projet.
      * @param idProjet
@@ -57,7 +60,7 @@ public class UploadImageService {
                 throw new DataNotFoundException("0210");
             }
         } catch (Exception e) {
-            if (e.getMessage() != null && e.getMessage().equals("0210")) {
+            if ("0210".equals(e.getMessage())) {
                 throw new DataNotFoundException("0210", e);
             } else {
                 LOG.error("Une erreur est survenue lors de l'appel BDD getImageById", e);
@@ -84,7 +87,9 @@ public class UploadImageService {
         this.uploadImageRepository.deleteById(id);
     }
 
-
+    public List<UploadImage> hasvideo() {
+        return this.uploadImageRepository.findByHasVideo(true);
+    }
 
 //    public UploadImage updateImage(Long id, UploadImage uploadImage) {
 //        Optional<UploadImage> studentOptional = uploadImageRepository.findById(id);
