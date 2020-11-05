@@ -1,19 +1,31 @@
 package com.example.Julien3DBack.SousCategorie;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
+import javax.persistence.*;
 
 @Entity
 public class sousCategorie {
 
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     @Column(name = "souscategorie", nullable= false)
-    private String SousCategorie;
+    private String sousCategorie;
 
     public String getSousCategorie() {
-        return SousCategorie;
+        return sousCategorie;
     }
 
     public void setSousCategorie(String sousCategorie) {
-        SousCategorie = sousCategorie;
+        this.sousCategorie = sousCategorie;
     }
 }

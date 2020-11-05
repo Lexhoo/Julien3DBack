@@ -38,20 +38,9 @@ public class UploadImage {
     @Column(name="image_url", nullable = false)
     private String imageUrl;
 
-    @Column(name = "code_souscategorie", nullable= false)
-    private String codeSousCategorie;
-
 
     @Column(name = "categorie_id", nullable= false)
     private Long idCategorie;
-
-    public String getCodeSousCategorie() {
-        return codeSousCategorie;
-    }
-
-    public void setCodeSousCategorie(String codeSousCategorie) {
-        this.codeSousCategorie = codeSousCategorie;
-    }
 
     public String getProjetName() {
         return projetName;
