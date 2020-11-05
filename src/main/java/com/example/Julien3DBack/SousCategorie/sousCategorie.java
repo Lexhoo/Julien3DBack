@@ -18,14 +18,14 @@ public class sousCategorie {
         this.id = id;
     }
 
-    @Column(name = "souscategorie", nullable= false)
-    private String sousCategorie;
+    @Column(name = "nomSousCategorie", nullable= false)
+    private String nomSousCategorie;
 
     public String getSousCategorie() {
-        return sousCategorie;
+        return nomSousCategorie;
     }
 
     public void setSousCategorie(String sousCategorie) {
-        this.sousCategorie = sousCategorie;
+        this.nomSousCategorie = nomSousCategorie;
     }
 }
