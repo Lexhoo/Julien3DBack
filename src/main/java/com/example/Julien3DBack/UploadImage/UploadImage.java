@@ -38,9 +38,16 @@ public class UploadImage {
     @Column(name="image_url", nullable = false)
     private String imageUrl;
 
+    @Column(name = "souscategorie_id", nullable= false)
+    private Long idSousCategorie;
 
     @Column(name = "categorie_id", nullable= false)
     private Long idCategorie;
+    @Column(name = "projet_name")
+    private String projetName;
+
+    @Column(name = "projet_id", nullable = false)
+    private Long idProjet;
 
     public String getProjetName() {
         return projetName;
@@ -50,11 +57,13 @@ public class UploadImage {
         this.projetName = projetName;
     }
 
-    @Column(name = "projet_name")
-    private String projetName;
+    public Long getIdSousCategorie() {
+        return idSousCategorie;
+    }
 
-    @Column(name = "projet_id", nullable = false)
-    private Long idProjet;
+    public void setIdSousCategorie(Long idSousCategorie) {
+        this.idSousCategorie = idSousCategorie;
+    }
 
     public Long getId() {
         return id;
