@@ -42,23 +42,25 @@ public class MosaiqueService {
             /**
              * On boucle sur la liste des projets récupérée.
              */
-            projetList.stream().forEach(projet -> {
-                /**
-                 * On filtre sur la liste d'images de la catégorie récupérée en premier de manière à n'avoir que les
-                 * images dont l'idProjet est égale à celui du projet de la boucle (image.getIdProjet() == projet.getId()).
-                 */
-                List<UploadImage> listeImagesTemporaire = imagesListByCategorie.stream()
-                        .filter(image -> projet.getId().equals(image.getIdProjet())).collect(Collectors.toList());
-                if(listeImagesTemporaire != null && !listeImagesTemporaire.isEmpty()) {
-
-
-                    Random random = new Random();
+            if (projetList != null && !projetList.isEmpty()) {
+                projetList.stream().forEach(projet -> {
                     /**
-                     * On récupère une image au hasard de cette liste pour l'ajouter à celle que l'on envoie au front.
+                     * On filtre sur la liste d'images de la catégorie récupérée en premier de manière à n'avoir que les
+                     * images dont l'idProjet est égale à celui du projet de la boucle (image.getIdProjet() == projet.getId()).
                      */
-                    imagesList.add(listeImagesTemporaire.get(random.nextInt(listeImagesTemporaire.size())));
-                }
+                    List<UploadImage> listeImagesTemporaire = imagesListByCategorie.stream()
+                            .filter(image -> projet.getId().equals(image.getIdProjet())).collect(Collectors.toList());
+                    if (listeImagesTemporaire != null && !listeImagesTemporaire.isEmpty()) {
+
+
+                        Random random = new Random();
+                        /**
+                         * On récupère une image au hasard de cette liste pour l'ajouter à celle que l'on envoie au front.
+                         */
+                        imagesList.add(listeImagesTemporaire.get(random.nextInt(listeImagesTemporaire.size())));
+                    }
                 });
+            }
         } catch (Exception e) {
             LOG.error("Une erreur est survenue lors de la constitution du randhome", e);
             throw new DataSystemException("0310", e);

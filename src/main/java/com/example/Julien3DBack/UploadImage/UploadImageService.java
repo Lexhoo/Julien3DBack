@@ -40,10 +40,7 @@ public class UploadImageService {
      */
     public List<UploadImage> getImagesByIdProjet(Long idProjet)  {
         List<UploadImage> FilesList = this.uploadImageRepository.findByIdProjet(idProjet);
-        if (FilesList.isEmpty()) {
-            LOG.error("je suis 1 Error");
-            throw new DataNotFoundException("302");
-        }
+
         return FilesList;
     }
 
