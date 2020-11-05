@@ -21,11 +21,11 @@ public class sousCategorie {
     @Column(name = "nomSousCategorie", nullable= false)
     private String nomSousCategorie;
 
-    public String getSousCategorie() {
+    public String getNomSousCategorie() {
         return nomSousCategorie;
     }
 
-    public void setSousCategorie(String sousCategorie) {
+    public void setNomSousCategorie(String nomSousCategorie) {
         this.nomSousCategorie = nomSousCategorie;
     }
 }
