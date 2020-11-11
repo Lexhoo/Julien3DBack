@@ -21,7 +21,7 @@ public class SendEmailservice {
         StringBuilder subject = new StringBuilder(mail.getNom());
 
         SimpleMailMessage msg = new SimpleMailMessage();
-        msg.setTo("lexhoo@yahoo.fr", "julien.adoum@gmail.com");
+        msg.setTo("julien.adoum@gmail.com");
         msg.setFrom(mail.getEmail());
 
         msg.setSubject(subject.append(" Contact : ").append(mail.getPhone()).toString());
