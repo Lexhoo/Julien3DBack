@@ -87,6 +87,10 @@ public class UploadImageService {
     public List<UploadImage> hasvideo() {
         return this.uploadImageRepository.findByHasVideo(true);
     }
+    
+    public List<UploadImage> getImagesVitrine() {
+    	return this.uploadImageRepository.findByIsImageVitrine(true);
+    }
 
 //    public UploadImage updateImage(Long id, UploadImage uploadImage) {
 //        Optional<UploadImage> studentOptional = uploadImageRepository.findById(id);
