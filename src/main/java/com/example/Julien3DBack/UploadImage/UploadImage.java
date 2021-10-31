@@ -48,6 +48,9 @@ public class UploadImage {
 
     @Column(name = "projet_id", nullable = false)
     private Long idProjet;
+    
+    @Column(name="is_image_vitrine")
+    private boolean isImageVitrine;
 
     public String getProjetName() {
         return projetName;
@@ -152,6 +155,14 @@ public class UploadImage {
     public void setIdProjet(Long idProjet) {
         this.idProjet = idProjet;
     }
+
+	public boolean isImageVitrine() {
+		return isImageVitrine;
+	}
+
+	public void setImageVitrine(boolean isImageVitrine) {
+		this.isImageVitrine = isImageVitrine;
+	}
 
 
 }
