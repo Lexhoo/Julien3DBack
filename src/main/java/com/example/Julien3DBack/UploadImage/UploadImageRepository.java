@@ -16,6 +16,4 @@ public interface UploadImageRepository extends JpaRepository<UploadImage, Long> 
     List<UploadImage> findByIdProjetAndIdCategorie(Long idProjet, Long idCategorie);
 
     List<UploadImage> findByHasVideo(boolean video);
-    
-    List<UploadImage> findByIsImageVitrine(boolean imageVitrine);
 }
